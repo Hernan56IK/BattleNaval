@@ -148,11 +148,16 @@ public class boardcontroller {
     private void placeShip(int row, int col, int shipSize, boolean vertical, GridPane board) {
         // Colocar el barco en la grilla
         for (int i = 0; i < shipSize; i++) {
+            boolean booleanFinish = true;
             int shipRow = vertical ? row + i : row;
             int shipCol = vertical ? col : col + i;
 
+            if (i == shipSize - 1){
+                booleanFinish = false;
+            }
+
             youBoardCells[shipRow][shipCol] = true; // Marcar la celda como ocupada por el barco
-            ship newShip = new ship(1, vertical); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
+            ship newShip = new ship(1, vertical, booleanFinish); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
             board.add(newShip, shipCol, shipRow); // Agregar el barco a la grilla en la posición adecuada
         }
     }
