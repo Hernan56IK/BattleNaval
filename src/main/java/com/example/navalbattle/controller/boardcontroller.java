@@ -96,12 +96,18 @@ public class boardcontroller {
 
     private void handlePrimaryClick(GridPane board, Rectangle rect, int row, int col) {
         try {
+            if (board == EnemyBoard && !allShipsPlaced()) {
+                outputTextField.clear();
+                outputTextField.appendText("Coloca todos tus barcos antes de atacar.\n");
+                return; // Salir del método si no se han colocado todos los barcos
+            }
+
             boolean hasShip = youBoardCells[row][col];
             boolean EnemyHasShip = enemyBoardCells[row][col];
             if (hasShip && board == YouBoard) {
                 outputTextField.clear();
                 rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
-                outputTextField.appendText("Barco aliado dañado\n");
+                outputTextField.appendText("Aliado dañado\n");
             } else if (EnemyHasShip && board == EnemyBoard) {
                 outputTextField.clear();
                 rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
@@ -109,10 +115,10 @@ public class boardcontroller {
             } else {
                 outputTextField.clear();
                 rect.setFill(Color.BLACK); // Si no hay parte del barco en esta área, ponerla de color negro
-                outputTextField.appendText("Fallado\n");
+                outputTextField.appendText("Falló\n");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Índice fuera de límites: " + e.getMessage());
+            outputTextField.appendText("Índice fuera de límites: ");
         } catch (Exception e) {
             System.out.println("Error desconocido: " + e.getMessage());
         }
@@ -303,6 +309,11 @@ public class boardcontroller {
         } else {
             EnemyshipsOfSize2++;
         }
+    }
+
+    // Método para verificar si todos los barcos han sido colocados en YouBoard
+    private boolean allShipsPlaced() {
+        return shipsOfSize6 == MAX_SHIPS_OF_SIZE_6 && shipsOfSize4 == MAX_SHIPS_OF_SIZE_4 && shipsOfSize2 == MAX_SHIPS_OF_SIZE_2;
     }
 
 }
