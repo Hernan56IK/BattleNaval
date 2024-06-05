@@ -104,10 +104,9 @@ public class boardcontroller {
 
             boolean hasShip = youBoardCells[row][col];
             boolean EnemyHasShip = enemyBoardCells[row][col];
-            if (hasShip && board == YouBoard) {
+            if (board == YouBoard) {
                 outputTextField.clear();
-                rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
-                outputTextField.appendText("Aliado dañado\n");
+                outputTextField.appendText("No puedes atacar tu propio zona\n");
             } else if (EnemyHasShip && board == EnemyBoard) {
                 outputTextField.clear();
                 rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
