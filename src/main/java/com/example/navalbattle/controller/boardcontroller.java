@@ -224,6 +224,7 @@ public class boardcontroller {
         GridPane Myboard = theboard;
 
         for (int i = 0; i < shipSize; i++) {
+            boolean booleanFinish = true;
             int shipRow = vertical ? (positiveDirection ? row + i : row - i) : row;
             int shipCol = vertical ? col : (positiveDirection ? col + i : col - i);
 
@@ -233,7 +234,12 @@ public class boardcontroller {
             if (Myboard == EnemyBoard) {
                 enemyBoardCells[shipRow][shipCol] = true; // Marcar la celda como ocupada por el barco
             }
-            ship newShip = new ship(1, vertical); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
+
+            if (i == shipSize - 1){
+                booleanFinish = false;
+            }
+
+            ship newShip = new ship(1, vertical, booleanFinish); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
             Myboard.add(newShip, shipCol, shipRow); // Agregar el barco a la grilla en la posición adecuada
             newShip.toBack();
         }
