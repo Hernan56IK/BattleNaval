@@ -74,11 +74,13 @@
    </right>
    <center>
        <Pane fx:id="SubPaneGeneral" prefHeight="382.0" prefWidth="168.0" BorderPane.alignment="CENTER">
-           <TextField fx:id="ExitText" alignment="TOP_LEFT" layoutX="15.0" layoutY="44.0" prefHeight="243.0" prefWidth="122.0" promptText="Esperando mensaje...">
-              <font>
-                  <Font name="Berlin Sans FB" size="12.0" />
-              </font>
-           </TextField>
+         <children>
+            <TextField fx:id="outputTextField" editable="false" layoutX="13.0" layoutY="57.0" prefHeight="178.0" prefWidth="126.0" promptText="Esperando movimiento..." text="Esperando  movimiento...">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+         </children>
        </Pane>
    </center>
    <bottom>
