@@ -24,6 +24,8 @@ public class ship extends Parent {
         }
 
         getChildren().add(vbox);
+
+
     }
 
     public void hit() {
