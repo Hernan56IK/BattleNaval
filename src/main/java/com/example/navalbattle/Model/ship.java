@@ -1,63 +1,26 @@
 package com.example.navalbattle.Model;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.Pane;
 
-import javafx.scene.layout.Pane;
-
+// Clase 'ship' que representa un barco en el juego
 public class ship extends Pane {
-    public int type;
-    public boolean vertical;
-    private int health;
+    public int type; // Tamaño del barco
 
-    public ship(int type, boolean vertical) {
-        this.type = type;
-        this.vertical = vertical;
-        this.health = type;
 
+    // Constructor de la clase 'ship'
+    public ship(int type) {
+        this.type = type; // Inicializa el tamaño del barco
+
+        // Crear las secciones del barco representadas por rectángulos
         for (int i = 0; i < type; i++) {
-            Rectangle square = new Rectangle(33, 33);
-            square.setFill(Color.BLUE);
-            square.setStroke(Color.BLACK);
-            if (vertical) {
-                square.setTranslateY(i * 30); // Posicionar verticalmente los rectángulos
-            } else {
-                square.setTranslateX(i * 30); // Posicionar horizontalmente los rectángulos
-            }
-            getChildren().add(square); // Añadir rectángulos directamente como hijos de ship (que es un Pane)
+            Rectangle square = new Rectangle(33, 33); // Crea un rectángulo de 33x33 píxeles
+            square.setFill(Color.BLUE); // Establece el color de relleno del rectángulo a azul
+            square.setStroke(Color.BLACK); // Establece el color del borde del rectángulo a negro
+            square.setTranslateX(i * 30); // Posiciona horizontalmente los rectángulos con un espacio de 30 píxeles entre ellos
+            getChildren().add(square); // Añade los rectángulos como hijos directos de 'ship' (que es un Pane)
         }
     }
 
-    public void hit() {
-        health--;
-    }
-
-    public boolean isAlive() {
-        return health > 0;
-    }
-
-    public void setVertical(boolean vertical) {
-        this.vertical = vertical;
-        for (Node child : getChildren()) {
-            if (child instanceof Rectangle) {
-                Rectangle square = (Rectangle) child;
-                if (vertical) {
-                    square.setTranslateX(0); // Resetear posición horizontal
-                    square.setTranslateY(getChildren().indexOf(child) * 30); // Posicionar verticalmente
-                } else {
-                    square.setTranslateY(0); // Resetear posición vertical
-                    square.setTranslateX(getChildren().indexOf(child) * 30); // Posicionar horizontalmente
-                }
-            }
-        }
-    }
-
-    public boolean isVertical() {
-        return vertical;
-    }
 }
-

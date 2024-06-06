@@ -465,7 +465,7 @@ public class boardcontroller {
             if (Myboard == EnemyBoard) {
                 enemyBoardCells[shipRow][shipCol] = true; // Marcar la celda como ocupada por el barco enemigo
             }
-            ship newShip = new ship(1, vertical); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
+            ship newShip = new ship(1); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
             Myboard.add(newShip, shipCol, shipRow); // Agregar el barco a la grilla en la posición adecuada
             newShip.toBack();//pone la representacion del barco detras de la grilla para no bloquear los botones
         }
@@ -683,32 +683,49 @@ public class boardcontroller {
 
     }
 
+
+
+    // Método para establecer una imagen de fondo en un GridPane
     private void setBackgroundImage(GridPane gridPane, String imagePath) {
+        // Cargar la imagen desde la ruta proporcionada
         Image backgroundImage = new Image(imagePath);
+
+        // Crear un objeto BackgroundSize para definir el tamaño de la imagen de fondo
         BackgroundSize backgroundSize = new BackgroundSize(
                 376, 376, false, false, false, false);
+
+        // Crear un objeto BackgroundImage con la imagen cargada y configuraciones adicionales
         BackgroundImage backgroundImg = new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                backgroundSize
+                backgroundImage,                 // La imagen a usar como fondo
+                BackgroundRepeat.NO_REPEAT,      // No repetir la imagen en horizontal
+                BackgroundRepeat.NO_REPEAT,      // No repetir la imagen en vertical
+                BackgroundPosition.CENTER,       // Centrar la imagen en el GridPane
+                backgroundSize                   // Usar el tamaño de imagen especificado
         );
+
+        // Establecer la imagen de fondo en el GridPane
         gridPane.setBackground(new Background(backgroundImg));
     }
 
 
 
 
-    private void setBackgroundImagePane(BorderPane borderPane, String imagePath) {
-        BackgroundImage backgroundImage = new BackgroundImage(
-                new Image(imagePath, 1000, 1000, true, true),
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(1000, 1000, true, true, true, true));
 
+    // Método para establecer una imagen de fondo en un BorderPane
+    private void setBackgroundImagePane(BorderPane borderPane, String imagePath) {
+        // Crear un objeto BackgroundImage con la imagen cargada y configuraciones adicionales
+        BackgroundImage backgroundImage = new BackgroundImage(
+                new Image(imagePath, 1000, 1000, true, true), // Cargar la imagen con el tamaño 1000x1000, manteniendo las proporciones
+                BackgroundRepeat.NO_REPEAT, // No repetir la imagen en el fondo
+                BackgroundRepeat.NO_REPEAT, // No repetir la imagen en el fondo
+                BackgroundPosition.CENTER, // Colocar la imagen en el centro del BorderPane
+                new BackgroundSize(1000, 1000, true, true, true, true) // Configurar el tamaño del fondo para ajustar al BorderPane
+        );
+
+        // Crear un objeto Background con el BackgroundImage creado
         Background background = new Background(backgroundImage);
+
+        // Establecer el fondo del BorderPane con el Background creado
         borderPane.setBackground(background);
     }
 
@@ -716,20 +733,31 @@ public class boardcontroller {
 
 
 
+
+    // Método para mostrar una explosión en la posición dada en la grilla
     private void showExplosion(int row, int col, GridPane gridPane) {
+        // Crear un ImageView para la imagen de explosión
         ImageView exploImageView = new ImageView(explosionImageView);
-        exploImageView.setFitWidth(RECTANGLE_SIZE); // Ajusta el ancho de la imagen
-        exploImageView.setFitHeight(RECTANGLE_SIZE); // Ajusta el alto de la imagen
+        exploImageView.setFitWidth(RECTANGLE_SIZE); // Ajustar el ancho de la imagen al tamaño de la celda
+        exploImageView.setFitHeight(RECTANGLE_SIZE); // Ajustar el alto de la imagen al tamaño de la celda
+
+        // Agregar el ImageView a la grilla
         gridPane.getChildren().add(exploImageView);
+
+        // Establecer la columna y fila de la imagen de explosión en la grilla
         GridPane.setColumnIndex(exploImageView, col);
         GridPane.setRowIndex(exploImageView, row);
 
-        // Define una Timeline para eliminar la imagen después de un breve período de tiempo
+        // Definir una Timeline para eliminar la imagen después de un breve período de tiempo
         Timeline timeline = new Timeline(
+                // Crear un KeyFrame que se ejecutará después de 0.5 segundos
                 new KeyFrame(Duration.seconds(0.5), event -> gridPane.getChildren().remove(exploImageView))
         );
-        timeline.play(); // Inicia la línea de tiempo
+
+        // Iniciar la Timeline
+        timeline.play();
     }
+
 
 
 }
