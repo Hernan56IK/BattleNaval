@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5e9a702-9715-498d-8e34-5db557882631" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/AlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/IAlertBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/pixel_explosion.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/explosion.gif" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +61,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DARIO\Downloads\NavalBattle\src\main\java\com\example\navalbattle\View" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.navalbattle" />
     </key>
@@ -87,7 +90,7 @@
       <workItem from="1717535546018" duration="509000" />
       <workItem from="1717557069396" duration="940000" />
       <workItem from="1717560356107" duration="76000" />
-      <workItem from="1717601746550" duration="2049000" />
+      <workItem from="1717601746550" duration="31536000" />
     </task>
     <servers />
   </component>

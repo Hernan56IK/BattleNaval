@@ -1,11 +1,15 @@
 package com.example.navalbattle.Model;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
 
-public class ship extends Parent {
+import javafx.scene.layout.Pane;
+
+public class ship extends Pane {
     public int type;
     public boolean vertical;
     private int health;
@@ -15,17 +19,17 @@ public class ship extends Parent {
         this.vertical = vertical;
         this.health = type;
 
-        VBox vbox = new VBox();
         for (int i = 0; i < type; i++) {
-            Rectangle square = new Rectangle(30, 30);
+            Rectangle square = new Rectangle(37, 33);
             square.setFill(Color.BLUE);
             square.setStroke(Color.BLACK);
-            vbox.getChildren().add(square);
+            if (vertical) {
+                square.setTranslateY(i * 30); // Posicionar verticalmente los rectángulos
+            } else {
+                square.setTranslateX(i * 30); // Posicionar horizontalmente los rectángulos
+            }
+            getChildren().add(square); // Añadir rectángulos directamente como hijos de ship (que es un Pane)
         }
-
-        getChildren().add(vbox);
-
-
     }
 
     public void hit() {
@@ -38,18 +42,22 @@ public class ship extends Parent {
 
     public void setVertical(boolean vertical) {
         this.vertical = vertical;
-        VBox vbox = new VBox();
-        for (int i = 0; i < type; i++) {
-            Rectangle square = new Rectangle(30, 30);
-            square.setFill(Color.BLUE);
-            square.setStroke(Color.BLACK);
-            vbox.getChildren().add(square);
+        for (Node child : getChildren()) {
+            if (child instanceof Rectangle) {
+                Rectangle square = (Rectangle) child;
+                if (vertical) {
+                    square.setTranslateX(0); // Resetear posición horizontal
+                    square.setTranslateY(getChildren().indexOf(child) * 30); // Posicionar verticalmente
+                } else {
+                    square.setTranslateY(0); // Resetear posición vertical
+                    square.setTranslateX(getChildren().indexOf(child) * 30); // Posicionar horizontalmente
+                }
+            }
         }
-        getChildren().clear();
-        getChildren().add(vbox);
     }
 
     public boolean isVertical() {
         return vertical;
     }
 }
+

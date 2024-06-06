@@ -1,6 +1,10 @@
 package com.example.navalbattle.controller;
 
 import com.example.navalbattle.Model.ship;
+import com.example.navalbattle.View.Alert.AlertBox;
+import com.example.navalbattle.View.BoardStage;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -32,6 +36,8 @@ public class boardcontroller {
     private boolean[][] youBoardCells;
     private boolean[][] enemyBoardCells;
     private ship selectedShip;
+    private final int RECTANGLE_SIZE = 30;
+
 
     // Declarar variables de seguimiento de la cantidad de barcos colocados y los límites máximos permitidos
     private int shipsOfSize6 = 0;
@@ -44,7 +50,14 @@ public class boardcontroller {
     private final int MAX_SHIPS_OF_SIZE_4 = 1; // Máximo permitido de barcos de tamaño 4
     private final int MAX_SHIPS_OF_SIZE_2 = 2; // Máximo permitido de barcos de tamaño 2
     // Ruta del GIF de explosión
-    private final String EXPLOSION_GIF_PATH = "file:src/main/resources/explosion.gif";
+    private final String EXPLOSION_GIF_PATH = "file:src/main/resources/images/explosion.gif";
+    //total de enemigos en las grillas
+    private int totalEnemyShips;
+    private int totalPlayerShips;
+    //enemigos o aliados encontrados
+    private int FoundEnemy;
+    private int FoundAliade;
+
 
     public void initialize() {
 
@@ -58,12 +71,20 @@ public class boardcontroller {
         initializeBoard(YouBoard);
         initializeBoard(EnemyBoard);
 
-        for(int i=0;i<5;i++){
+        boolean enemy=false;
+        do{
             Random random=new Random();
             int rows = random.nextInt(EnemyBoard.getRowConstraints().size());
             int cols = random.nextInt(EnemyBoard.getColumnConstraints().size());
             RandomEnemyShips(EnemyBoard,rows,cols);
-        }
+            totalEnemyShips=countTrueValues(enemyBoardCells);
+            System.out.println(totalEnemyShips);
+            if (EnemyshipsOfSize6 == MAX_SHIPS_OF_SIZE_6 && EnemyshipsOfSize4 == MAX_SHIPS_OF_SIZE_4 && EnemyshipsOfSize2 == MAX_SHIPS_OF_SIZE_2){
+                hideEnemyShips();
+                return;
+            }
+        }while(!enemy);
+
     }
 
     private void initializeBoard(GridPane board) {
@@ -73,20 +94,29 @@ public class boardcontroller {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
                 Pane cell = new Pane();
-                Rectangle rect = new Rectangle(30, 30);
+                Rectangle rect = new Rectangle(37,33);
                 rect.setFill(Color.TRANSPARENT);
                 rect.setStroke(Color.BLACK); // Establece el color del borde
                 cell.getChildren().add(rect);
                 board.add(cell, col, row);
 
+                // Establecer el tamaño de la celda de la grilla
+                board.getColumnConstraints().get(col).setPrefWidth(RECTANGLE_SIZE);
+                board.getRowConstraints().get(row).setPrefHeight(RECTANGLE_SIZE);
 
                 int finalRow = row;
                 int finalCol = col;
                 cell.setOnMouseClicked(event -> {
-                    if (event.getButton() == MouseButton.PRIMARY) {
-                        handlePrimaryClick(board,rect, finalRow, finalCol);
+                    if (event.getButton() == MouseButton.PRIMARY && board==EnemyBoard && (rect.getFill().equals(Color.TRANSPARENT))){
+                        handlePrimaryClick(board,rect, finalRow, finalCol, true);
+                        enemyTurn();
                     } else if (board == YouBoard && event.getButton() == MouseButton.SECONDARY ) {
                         handleSecondaryClick(board,finalRow, finalCol);
+                        totalPlayerShips=countTrueValues(youBoardCells);
+                        System.out.println(totalPlayerShips);
+                    }else{
+                        outputTextField.clear();
+                        outputTextField.appendText("Primero coloca tus barcos.\n");
                     }
                 });
 
@@ -94,34 +124,62 @@ public class boardcontroller {
         }
     }
 
-    private void handlePrimaryClick(GridPane board, Rectangle rect, int row, int col) {
+    private void handlePrimaryClick(GridPane board, Rectangle rect, int row, int col, boolean isPlayer) {
         try {
             if (board == EnemyBoard && !allShipsPlaced()) {
                 outputTextField.clear();
-                outputTextField.appendText("Coloca todos tus barcos antes de atacar.\n");
+                outputTextField.appendText("Primero coloca tus barcos.\n");
                 return; // Salir del método si no se han colocado todos los barcos
             }
 
             boolean hasShip = youBoardCells[row][col];
             boolean EnemyHasShip = enemyBoardCells[row][col];
-            if (board == YouBoard) {
-                outputTextField.clear();
-                outputTextField.appendText("No puedes atacar tu propio zona\n");
-            } else if (EnemyHasShip && board == EnemyBoard) {
-                outputTextField.clear();
-                rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
-                outputTextField.appendText("Encontrado\n");
+            if (isPlayer) {
+                if (board == YouBoard) {
+                    outputTextField.clear();
+                    outputTextField.appendText("Zona invalida\n");
+                } else if (board == EnemyBoard) {
+                    outputTextField.clear();
+                    if (EnemyHasShip) {
+                        rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
+                        outputTextField.appendText("Enemigo Encontrado\n");
+                        FoundEnemy++;
+                        if(FoundEnemy==totalEnemyShips){
+                            new AlertBox().showConfirm("GAME OVER","HAS DESTRUIDO LA FLOTA ENEMIGA","FELICIDADES HAS GANADOS");
+                            BoardStage.deleteInstance();
+                        }
+                    } else {
+                        rect.setFill(Color.BLACK); // Si no hay parte del barco en esta área, ponerla de color negro
+                        outputTextField.appendText("Falló\n");
+                    }
+
+                }
             } else {
-                outputTextField.clear();
-                rect.setFill(Color.BLACK); // Si no hay parte del barco en esta área, ponerla de color negro
-                outputTextField.appendText("Falló\n");
+                if (hasShip) {
+                    outputTextField.clear();
+                    rect.setFill(Color.RED); // Si hay parte del barco en esta área, ponerla de color rojo
+                    outputTextField.appendText("Aliado dañado\n");
+                    FoundAliade++;
+                    if(FoundAliade==totalPlayerShips){
+                        new AlertBox().showConfirm("GAME OVER","HAN DESTRUIDO LA FLOTA ALIADA...","TU PIERDES...");
+                        BoardStage.deleteInstance();
+                    }
+                } else {
+                    outputTextField.clear();
+                    rect.setFill(Color.BLACK); // Si no hay parte del barco en esta área, ponerla de color negro
+                    outputTextField.appendText("Maquina Falló\n");
+                }
             }
+
+
+
         } catch (ArrayIndexOutOfBoundsException e) {
             outputTextField.appendText("Índice fuera de límites: ");
         } catch (Exception e) {
             System.out.println("Error desconocido: " + e.getMessage());
         }
     }
+
 
     // Método para manejar el clic secundario
     private void handleSecondaryClick(GridPane Iboard, int row, int col) {
@@ -313,6 +371,67 @@ public class boardcontroller {
     // Método para verificar si todos los barcos han sido colocados en YouBoard
     private boolean allShipsPlaced() {
         return shipsOfSize6 == MAX_SHIPS_OF_SIZE_6 && shipsOfSize4 == MAX_SHIPS_OF_SIZE_4 && shipsOfSize2 == MAX_SHIPS_OF_SIZE_2;
+    }
+
+    private void enemyTurn() {
+        // Verificar si todos los barcos han sido colocados
+        if (!allShipsPlaced()) {
+            return;
+        }
+
+        // Generar un ataque automático del enemigo
+        Random random = new Random();
+        int numRows = YouBoard.getRowConstraints().size();
+        int numCols = YouBoard.getColumnConstraints().size();
+        int row, col;
+
+        do {
+            row = random.nextInt(numRows);
+            col = random.nextInt(numCols);
+
+            // Verificar si la celda está vacía (color transparente)
+            Node node = null;
+            for (Node child : YouBoard.getChildren()) {
+                Integer rowIndex = GridPane.getRowIndex(child);
+                Integer colIndex = GridPane.getColumnIndex(child);
+                if (rowIndex != null && colIndex != null && rowIndex.intValue() == row && colIndex.intValue() == col) {
+                    node = child;
+                    break;
+                }
+            }
+
+            if (node != null && node instanceof Pane) {
+                Rectangle rect = (Rectangle) ((Pane) node).getChildren().get(0);
+                if (rect.getFill().equals(Color.TRANSPARENT)||rect.getFill().equals(Color.BLUE)) {
+                    // Si la celda está vacía, es un ataque válido
+                    handlePrimaryClick(YouBoard, rect, row, col, false);
+                    return;
+                }
+            }
+        } while (true);
+    }
+
+
+    // Método para ocultar los barcos en EnemyBoard
+    private void hideEnemyShips() {
+        for (Node child : EnemyBoard.getChildren()) {
+            if (child instanceof Pane) {
+                Rectangle rect = (Rectangle) ((Pane) child).getChildren().get(0);
+                rect.setFill(Color.TRANSPARENT);
+            }
+        }
+    }
+
+    private int countTrueValues(boolean[][] matrix) {
+        int count = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j]) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }
