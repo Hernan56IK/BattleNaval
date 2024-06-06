@@ -14,7 +14,7 @@ import java.io.IOException;
 public class BoardStage extends Stage {
 
     public BoardStage() throws IOException {
-        new AlertBox().showMessage("Bienvenido a Batalla Naval", "Crea tus barcos con el click derecho en el panel de la izquierda","Buena suerte");
+        new AlertBox().showConfirm("Bienvenido a Batalla Naval", "Crea tus barcos con el click derecho en el panel de la izquierda","Buena suerte");
         // Load the FXML file that defines the graphical interface of the welcome window
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/navalBattle/BoardGame.fxml"));
         Parent root = loader.load();

@@ -20,7 +20,7 @@ public class ship extends Pane {
         this.health = type;
 
         for (int i = 0; i < type; i++) {
-            Rectangle square = new Rectangle(37, 33);
+            Rectangle square = new Rectangle(33, 33);
             square.setFill(Color.BLUE);
             square.setStroke(Color.BLACK);
             if (vertical) {
