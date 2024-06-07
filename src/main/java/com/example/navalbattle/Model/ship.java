@@ -1,63 +1,89 @@
 package com.example.navalbattle.Model;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
-public class ship extends Parent {
+import java.io.Serializable;
+
+public class ship extends Pane implements Serializable {
     public int type;
     public boolean vertical;
     private int health;
 
-    public ship(int type, boolean vertical, boolean confirmation) {
+    public ship(int type, boolean vertical, boolean confirmation, boolean indicatorEnemyShip, boolean horizontal) {
         this.type = type;
         this.vertical = vertical;
         this.health = type;
 
-        if (confirmation==true) {
-            StackPane stackPane = new StackPane();
-            for (int i = 0; i < type; i++) {
-                Rectangle square = new Rectangle(30, 30);
-                square.setFill(Color.BLUE);
-                square.setStroke(Color.BLACK);
 
-                Rectangle square1 = new Rectangle(15, 15);
-                square1.setFill(Color.DARKBLUE);
-                square1.setStroke(Color.BLACK);
-                stackPane.getChildren().addAll(square, square1);
-                getChildren().add(stackPane);
+        for (int i = 0; i < type; i++) {
+            Rectangle square = new Rectangle(33, 33);
+            square.setFill(Color.BLUE);
+            square.setStroke(Color.BLACK);
+            // si se detecta que los barcos creados son del enemigo se vuelven invisibles
+            if (indicatorEnemyShip==true) {
+                square.setFill(Color.TRANSPARENT); // Establecer el color de relleno transparente
+                square.setStroke(Color.TRANSPARENT); // Establecer el color del borde transparente
             }
-        }
-        else{
-            StackPane stackPane = new StackPane();
-            for (int i = 0; i < type; i++) {
-                Polygon triangle = new Polygon();
-                triangle.getPoints().addAll(0.0, 0.0,
-                        0.0, 30.0,
-                        30.0, 15.0
-                );
-                triangle.setFill(Color.BLACK);
+            if (vertical) {
+                square.setTranslateY(i * 30); // Posicionar verticalmente los rectángulos
+            } else {
+                square.setTranslateX(i * 30); // Posicionar horizontalmente los rectángulos
+            }
 
-                Polygon triangle1 = new Polygon();
-                triangle1.getPoints().addAll(0.0, 0.0,
-                        0.0, 15.0,
-                        15.0, 7.5
-                );
-                triangle1.setFill(Color.GRAY);
+            // rectangulo que va contenido dentro del más grande
+            Rectangle square1 = new Rectangle(15, 15);
+            square1.setFill(Color.DARKBLUE);
+            square1.setStroke(Color.BLACK);
+            if(indicatorEnemyShip==true){
+                square1.setFill(Color.TRANSPARENT); // Establecer el color de relleno transparente
+                square1.setStroke(Color.TRANSPARENT); // Establecer el color del borde transparente
+            }
+            getChildren().addAll(square, square1);
 
-                if (vertical == true){
-                    Rotate rotate = new Rotate(90, 0, 0); // Ángulo de 90 grados, centro en (0, 0)
-                    triangle.getTransforms().add(rotate);
-                    Rotate rotate1 = new Rotate(90, -6, -10); // Ángulo de 90 grados, centro en (0, 0)
-                    triangle1.getTransforms().add(rotate1);
+            // los barcos ocupan una cantidad determinada de casillas, esta variable cambia su valor
+            // cuando se llega a la última casilla, ya que en esta se debe generar un triangulo.
+            if (!confirmation) {
+                //se vuelven invisibles los rectangulos creados para esta etapa
+                square.setFill(Color.TRANSPARENT);
+                square.setStroke(Color.TRANSPARENT);
+                square1.setFill(Color.TRANSPARENT);
+                square1.setStroke(Color.TRANSPARENT);
+                for (int j = 0; j < type; j++) {
+                    Polygon triangle = new Polygon();
+                    //varia los puntos dependiendo del sentido del barco
+                    triangle.getPoints().addAll(0.0, 0.0,
+                            35.0, 0.0,
+                            35.0, 30.0
+                    );
+                    triangle.setFill(Color.PURPLE);
+                    if (indicatorEnemyShip == true) {
+                        triangle.setFill(Color.TRANSPARENT); // Establecer el color de relleno transparente
+                        triangle.setStroke(Color.TRANSPARENT); // Establecer el color del borde transparente
+                    }
+
+                    if (vertical && !horizontal){
+                        triangle.getPoints().setAll(0.0, 33.0,
+                                33.0, 33.0,
+                                0.0, 0.0
+                        );
+                    }
+
+                    if (!vertical && horizontal) {
+                        triangle.getPoints().setAll(0.0, 33.0,
+                                33.0, 33.0,
+                                0.0, 0.0
+                        );
+                    }
+                    getChildren().add(triangle);
                 }
-
-                stackPane.getChildren().addAll(triangle, triangle1);
-                getChildren().add(stackPane);
             }
         }
     }
@@ -72,18 +98,22 @@ public class ship extends Parent {
 
     public void setVertical(boolean vertical) {
         this.vertical = vertical;
-        VBox vbox = new VBox();
-        for (int i = 0; i < type; i++) {
-            Rectangle square = new Rectangle(30, 30);
-            square.setFill(Color.BLUE);
-            square.setStroke(Color.BLACK);
-            vbox.getChildren().add(square);
+        for (Node child : getChildren()) {
+            if (child instanceof Rectangle) {
+                Rectangle square = (Rectangle) child;
+                if (vertical) {
+                    square.setTranslateX(0); // Resetear posición horizontal
+                    square.setTranslateY(getChildren().indexOf(child) * 30); // Posicionar verticalmente
+                } else {
+                    square.setTranslateY(0); // Resetear posición vertical
+                    square.setTranslateX(getChildren().indexOf(child) * 30); // Posicionar horizontalmente
+                }
+            }
         }
-        getChildren().clear();
-        getChildren().add(vbox);
     }
 
     public boolean isVertical() {
         return vertical;
     }
 }
+

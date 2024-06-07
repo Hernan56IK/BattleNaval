@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,83 +12,98 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="GeneralPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.navalbattle.controller.boardcontroller">
-   <left>
-      <GridPane fx:id="YouBoard" gridLinesVisible="true" prefHeight="382.0" prefWidth="322.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-   </left>
-   <top>
-       <ImageView fitHeight="93.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-           <Image url="@../../../images/Battleship_naval_game_logo.png" />
-       </ImageView>
-   </top>
-   <right>
-      <GridPane fx:id="EnemyBoard" gridLinesVisible="true" prefHeight="382.0" prefWidth="301.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-   </right>
-   <center>
-       <Pane fx:id="SubPaneGeneral" prefHeight="382.0" prefWidth="168.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="outputTextField" editable="false" layoutX="13.0" layoutY="57.0" prefHeight="178.0" prefWidth="126.0" promptText="Esperando movimiento..." text="Esperando  movimiento...">
-               <font>
-                  <Font size="18.0" />
-               </font>
+    <left>
+        <GridPane fx:id="YouBoard" gridLinesVisible="true" prefHeight="330.0" prefWidth="376.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+    </left>
+    <top>
+        <ImageView fitHeight="93.0" fitWidth="699.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+            <Image url="@../../../images/Battleship_naval_game_logo.png" />
+        </ImageView>
+    </top>
+    <right>
+        <GridPane fx:id="EnemyBoard" gridLinesVisible="true" prefHeight="330.0" prefWidth="376.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+    </right>
+    <bottom>
+        <Pane fx:id="SubPaneGeneral" prefHeight="106.0" prefWidth="770.0" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="105.0" fitWidth="420.0" layoutX="32.0" pickOnBounds="true">
+                <Image url="@../../../images/barco2.png" />
+            </ImageView>
+            <TextField fx:id="YouTextField" editable="false" layoutX="537.0" layoutY="6.0" prefHeight="42.0" prefWidth="227.0" promptText="Esperando JUGADOR..." style="-fx-border-color: BLACK; -fx-background-color: GREY; -fx-text-fill: BLACK;">
+                <font>
+                    <Font name="Arial Black" size="14.0" />
+                </font>
             </TextField>
-         </children>
-       </Pane>
-   </center>
-   <bottom>
-       <Pane prefHeight="106.0" prefWidth="770.0" BorderPane.alignment="CENTER">
-           <ImageView fitHeight="95.0" fitWidth="469.0" layoutX="151.0" layoutY="5.0" pickOnBounds="true">
-               <Image url="@../../../images/ship.png" />
-           </ImageView>
-       </Pane>
-   </bottom>
+            <Button fx:id="HelpButton" layoutX="197.0" layoutY="28.0" mnemonicParsing="false" onAction="#PressToHelp" prefHeight="50.0" prefWidth="52.0" style="-fx-background-radius: 50; -fx-background-color: #377bb8; -fx-text-fill: WHITE; -fx-border-width: 2; -fx-border-color: GREY; -fx-border-radius: 50;" text="?">
+                <font>
+                    <Font name="Bookshelf Symbol 7" size="30.0" />
+                </font>
+            </Button>
+         <TextField fx:id="EnemyText" editable="false" layoutX="538.0" layoutY="56.0" prefHeight="42.0" prefWidth="225.0" promptText="Espernado MAQUINA..." style="-fx-border-color: BLACK; -fx-background-color: GREY; -fx-text-fill: BLACK;">
+            <font>
+               <Font name="Arial Black" size="14.0" />
+            </font>
+         </TextField>
+         <TextField editable="false" layoutX="428.0" layoutY="11.0" prefHeight="35.0" prefWidth="107.0" style="-fx-border-color: TRANSPARENT; -fx-background-color: TRANSPARENT; -fx-text-fill: BLACK;" text="JUGADOR:">
+            <font>
+               <Font name="Arial Black" size="15.0" />
+            </font>
+         </TextField>
+         <TextField editable="false" layoutX="429.0" layoutY="61.0" prefHeight="35.0" prefWidth="107.0" style="-fx-border-color: TRANSPARENT; -fx-background-color: TRANSPARENT; -fx-text-fill: BLACK;" text="MAQUINA:">
+            <font>
+               <Font name="Arial Black" size="15.0" />
+            </font>
+         </TextField>
+        </Pane>
+    </bottom>
 </BorderPane>

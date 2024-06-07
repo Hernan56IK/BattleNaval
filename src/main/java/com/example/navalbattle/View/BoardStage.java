@@ -1,5 +1,7 @@
 package com.example.navalbattle.View;
 
+import com.example.navalbattle.View.Alert.AlertBox;
+import com.example.navalbattle.controller.boardcontroller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +13,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class BoardStage extends Stage {
+    private boardcontroller boardController;
+
 
     public BoardStage() throws IOException {
+        new AlertBox().showConfirm("Bienvenido a Batalla Naval", "Crea tus barcos con el click derecho en el panel de la izquierda","Buena suerte");
         // Load the FXML file that defines the graphical interface of the welcome window
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/navalBattle/BoardGame.fxml"));
-        Parent root = loader.load();
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            // Re-throwing the caught IOException
+            throw new IOException("Error while loading FXML file", e);
+        }
+        boardController = loader.getController();
         // The scene is created and the window is configured
         Scene scene = new Scene(root);
         getIcons().add(new Image(String.valueOf(getClass().getResource("/images/barco.png"))));
@@ -40,4 +52,6 @@ public class BoardStage extends Stage {
     private static class BoardStageHolder {
         private static BoardStage INSTANCE;
     }
+    public boardcontroller getBoardController() {return boardController;}
+
 }
