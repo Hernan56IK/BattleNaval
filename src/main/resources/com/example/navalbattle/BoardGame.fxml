@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="GeneralPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.navalbattle.controller.boardcontroller">
+<BorderPane fx:id="GeneralPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.navalbattle.controller.boardcontroller">
     <left>
         <GridPane fx:id="YouBoard" gridLinesVisible="true" prefHeight="330.0" prefWidth="376.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -104,6 +104,8 @@
                <Font name="Arial Black" size="15.0" />
             </font>
          </TextField>
+         <Button fx:id="IDSaveGameButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#ButtonSaveGame" onMouseDragEntered="#SaveGame" text="SaveGame" />
+         <Button fx:id="IDButtonLoadGame" layoutX="13.0" layoutY="49.0" mnemonicParsing="false" onMouseDragEntered="#LoadGame" text="LoadGame" />
         </Pane>
     </bottom>
 </BorderPane>

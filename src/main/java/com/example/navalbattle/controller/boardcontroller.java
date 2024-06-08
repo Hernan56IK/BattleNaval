@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -32,7 +33,7 @@ import java.util.*;
 /**
  * @author Juan Camilo Jimenez Toro
  * @author Hernan Dario Garcia Mahecha
- * @author James Sanchez
+ * @author James Bliner Quijano
  * @version 2.0
  * @deprecated
  */
@@ -62,6 +63,24 @@ public class boardcontroller implements Serializable {
 
     @FXML
     private Pane SubPaneGeneral;
+
+    @FXML
+    private Button IDSaveGameButton;
+
+    @FXML
+    private Button IDButtonLoadGame;
+
+    @FXML
+    void ButtonSaveGame(ActionEvent event) {
+
+    }
+
+    @FXML
+    void LoadGame(MouseDragEvent event) {
+
+    }
+
+
 
     //Matrices que almacenan las posiciones donde hay barcos colocando trues donde los hay
     private boolean[][] youBoardCells;
