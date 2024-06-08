@@ -29,6 +29,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * @author Juan Camilo Jimenez Toro
+ * @author Hernan Dario Garcia Mahecha
+ * @author James Sanchez
+ * @version 2.0
+ * @deprecated
+ */
+
 public class boardcontroller implements Serializable {
 
     //Boton de ayuda con las instrucciones
@@ -101,6 +109,9 @@ public class boardcontroller implements Serializable {
     private int usagesMethodCanPlaceShip = 0;
 
 
+    /**
+     * It is responsible for initializing the game, so it does not receive parameters.
+     */
     public void initialize() {
         // Ruta del GIF de explosión
         String EXPLOSION_GIF_PATH = "file:src/main/resources/images/explosion.gif";
@@ -156,20 +167,21 @@ public class boardcontroller implements Serializable {
 
     }
 
-
-    /*Este método se encarga de inicializar la cuadrícula del juego, creando las celdas y configurando los eventos de clic en cada celda. Aquí está la explicación detallada:
-
-    Se recibe como parámetro la cuadrícula (GridPane) a inicializar.
-    Se obtienen el número de filas (numRows) y columnas (numCols) de la cuadrícula.
-    Se itera sobre cada fila y columna para crear una celda en la cuadrícula.
-    Para cada celda, se crea un nuevo panel (Pane) que actúa como contenedor visual.
-    Se crea un rectángulo (Rectangle) que representa el contenido visual de la celda, con un tamaño específico.
-    Se establece el color de relleno y el color del borde del rectángulo como transparente.
-    El rectángulo se agrega como hijo del panel.
-    El panel se agrega a la cuadrícula en la posición correspondiente.
-    Se establece el tamaño preferido de la celda de la cuadrícula para asegurarse de que tenga las dimensiones adecuadas.
-    Se guarda la fila y columna finales para su uso dentro del evento de clic.
-    Se define el evento de clic para la celda, que ejecuta diferentes acciones según el tipo de clic y la cuadrícula en la que se encuentre.*/
+    /**
+     *  The grid (GridPane) is received as a parameter for initialization.
+     * The number of rows (numRows) and columns (numCols) of the grid are obtained.
+     * Iteration occurs over each row and column to create a cell in the grid.
+     * For each cell, a new panel (Pane) is created, acting as a visual container.
+     * A rectangle (Rectangle) is created to represent the visual content of the cell, with a specific size.
+     * The fill color and border color of the rectangle are set to transparent.
+     * The rectangle is added as a child to the panel.
+     * The panel is added to the grid at the corresponding position.
+     * The preferred size of the grid cell is set to ensure proper dimensions.
+     * The final row and column are stored for use within the click event.
+     * The click event for the cell is defined, executing different actions based on the type of click and the grid it belongs to.
+     *
+     * @param board It represents the grid (gridPane) where the ships will be stored; there is one grid for the player and another for the machine.
+     */
     private void initializeBoard(GridPane board) {
 
         // Se obtiene el número de filas y columnas de la cuadrícula.
@@ -244,7 +256,23 @@ public class boardcontroller implements Serializable {
     }
 
 
-    // Método para manejar el clic primario en un tablero (ataque del jugador).
+    /**
+     * A method that, through a left mouse click, does the following:
+     * - Verify whether the player is attempting to attack the enemy without placing all their ships.
+     * - Check if there is a ship at the selected position for both the player and the enemy.
+     * - Handle the attack based on whether it’s the player’s turn or the enemy’s.
+     * - If the board belongs to the player, display an invalid zone message if they try to attack their own board.
+     * - If there is an enemy ship at the selected position, mark it as found, display an explosion, and update the counter.
+     * - Verify if all enemy ships have been found and display a victory message if so.
+     * - If it’s the enemy’s turn, handle the attack result based on whether there is an allied ship at the selected position.
+     * - Check if all allied ships have been destroyed and display a defeat message if so."
+     *
+     * @param board Gridpane that represents the board, whether for the enemy or the player.
+     * @param rect  Rectangle data, which changes color depending on whether the player or the enemy discovers a ship by clicking on one of the grid cells.
+     * @param row   Row Specifies where the rectangle will be placed within the board (Gridpane)
+     * @param col   Column Specifies where the rectangle will be placed within the board (Gridpane)
+     * @param isPlayer Boolean variable. If its value is True, it’s the player’s turn; if False, it’s the machine’s turn.
+     */
     private void handlePrimaryClick(GridPane board, Rectangle rect, int row, int col, boolean isPlayer) {
         try {
             // Verificar si se está intentando atacar al enemigo sin haber colocado todos los barcos del jugador.
@@ -318,7 +346,14 @@ public class boardcontroller implements Serializable {
     }
 
 
-    // Método para manejar el clic secundario en un tablero (colocación de barcos por el jugador).
+    /**
+     * A method that serves to handle the right-click on the board, which performs ship placement by the player. It also:
+     * - Verifies whether it’s still possible to place ships of the desired size within the allowed limits.
+     * - Attempts to place the ship in various directions until finding a valid one
+     * @param Iboard Gridpane that represents the board, whether for the enemy or the player.
+     * @param row Row Specifies where the rectangle will be placed within the board (Gridpane)
+     * @param col Column Specifies where the rectangle will be placed within the board (Gridpane)
+     */
     private void handleSecondaryClick(GridPane Iboard, int row, int col) {
         GridPane Eboard = Iboard;
 
@@ -390,8 +425,13 @@ public class boardcontroller implements Serializable {
         }
     }
 
-    // Método para incrementar el contador de barcos colocados según su tamaño.
-    /*Este método se utiliza para aumentar el contador de barcos colocados en el tablero del jugador según el tamaño del barco que se haya colocado. Dependiendo del tamaño del barco proporcionado como parámetro (shipSize), se incrementa el contador correspondiente (shipsOfSize6, shipsOfSize4, o shipsOfSize2). Esto es esencial para realizar un seguimiento de la cantidad de barcos de cada tamaño que han sido colocados en el tablero del jugado*/
+    /**
+     * // Method to increment the ship placement counter based on its size.
+     * // This method is used to increase the count of ships placed on the player's board according to the size of the placed ship.
+     * // Depending on the ship size provided as a parameter (shipSize), the corresponding counter (shipsOfSize6, shipsOfSize4, or shipsOfSize2) is incremented.
+     * // This is essential for keeping track of the number of ships of each size that have been placed on the player's board.
+     * @param shipSize An integer variable that randomly holds a quantity representing the type of ship. These ships differ based on the number of squares they can occupy on the board
+     */
     private void incrementShipCount(int shipSize) {
         // Comprobar el tamaño del barco y aumentar el contador correspondiente.
         if (shipSize == 6) {
@@ -403,20 +443,19 @@ public class boardcontroller implements Serializable {
         }
     }
 
-
-
-    // Método para verificar si es posible colocar un barco en la posición deseada sin violar restricciones.
-    /*Este método evalúa si se puede colocar un barco en una posición específica del tablero, teniendo en cuenta el tamaño del barco,
-    su orientación (vertical u horizontal) y la dirección en la que se desea colocar (positiva o negativa).
-    Parámetros:
-    - board: el tablero en el que se intentará colocar el barco.
-    - row: la fila en la que se intentará colocar el barco.
-    - col: la columna en la que se intentará colocar el barco.
-    - shipSize: el tamaño del barco que se intentará colocar.
-    - vertical: indica si el barco se colocará verticalmente (true) u horizontalmente (false).
-    - positiveDirection: indica si se desea colocar el barco en dirección positiva (true) o negativa (false).
-    Devuelve true si es posible colocar el barco en la posición deseada sin violar restricciones,
-    y false en caso contrario.*/
+    /**
+     *   Method to check if it's possible to place a ship in the desired position without violating restrictions.
+     *   This method evaluates whether a ship can be placed at a specific position on the board, considering the
+     *   ship's size, orientation (vertical or horizontal), and the desired direction (positive or negative).
+     * @param board The board where the ship placement will be attempted.
+     * @param row The row where the ship will be placed.
+     * @param col The column where the ship will be placed.
+     * @param shipSize The size of the ship being placed.
+     * @param vertical Indicates whether the ship will be placed vertically (true) or horizontally (false).
+     * @param positiveDirection Indicates whether the ship should be placed in the positive direction (true) or negative direction (false).
+     * @return Returns true if it's possible to place the ship in the desired position without violating restrictions,
+     * and false otherwise.
+     */
     private boolean canPlaceShip(GridPane board, int row, int col, int shipSize, boolean vertical, boolean positiveDirection) {
         int numRows = board.getRowConstraints().size();
         int numCols = board.getColumnConstraints().size();
@@ -475,7 +514,17 @@ public class boardcontroller implements Serializable {
 
 
 
-    // Método para colocar el barco en la posición deseada en la grilla
+    /**
+     * Method for placing the ship in the desired position on the grid.
+     * These lines calculate the coordinates of the next position for the ship on the grid,
+     * considering whether the ship is placed vertically or horizontally, and the direction it is moving.
+     * @param row The row where the ship will be placed.
+     * @param col The column where the ship will be placed.
+     * @param shipSize The size of the ship being placed.
+     * @param vertical Indicates whether the ship will be placed vertically (true) or horizontally (false).
+     * @param theboard The board where the ship will be placed.
+     * @param positiveDirection Indicates whether the ship should be placed in the positive direction (true) or negative direction (false).
+     */
     private void placeShip(int row, int col, int shipSize, boolean vertical, GridPane theboard, boolean positiveDirection, String ID) {
         GridPane Myboard = theboard;
 
@@ -524,36 +573,30 @@ public class boardcontroller implements Serializable {
     }
 
 
-    // Método para colocar los barcos del enemigo de manera aleatoria en el tablero enemigo
-    /*
-        * Este método, RandomEnemyShips, se encarga de colocar los barcos del enemigo de manera aleatoria en el tablero enemigo.
-
-        Parámetros de entrada:
-            Iboard: El tablero en el que se van a colocar los barcos.
-            row, col: Las coordenadas de fila y columna donde se intentará colocar el primer segmento del barco.
-
-        Verificación del tablero:
-            Se asigna el tablero de entrada Iboard a la variable Eboard.
-            Si Eboard no es igual al tablero del enemigo (EnemyBoard), el método termina y no se realiza ninguna acción.
-
-        Verificación de límites de barcos:
-            Se verifica si aún se pueden colocar barcos del tamaño deseado dentro de los límites permitidos. Si ya se han colocado el máximo número de barcos de cierto tamaño, el método termina sin realizar ninguna acción.
-
-        Selección aleatoria del tamaño del barco:
-            Se utiliza un generador de números aleatorios para determinar el tamaño del barco que se va a colocar.
-            Se verifica cuántos barcos de cada tamaño ya se han colocado y se elige un tamaño que no haya alcanzado su límite.
-
-        Intentos de colocación del barco:
-            Se realizan varios intentos (hasta cuatro) para colocar el barco en diferentes direcciones.
-            Se llama a la función canPlaceShip para verificar si es posible colocar el barco en la posición actual y orientación.
-            Si se encuentra una posición válida, se llama a la función placeShip para colocar el barco en esa posición.
-            Si se logra colocar el barco, se establece la variable placed como verdadera y se termina el bucle de intentos.
-
-        Incremento del contador de barcos enemigos:
-            Si se logra colocar el barco correctamente, se incrementa el contador correspondiente al tamaño del barco colocado llamando a la función incrementEnemyShipCount.
-
-        Mensaje de error:
-            Si no se puede colocar el barco en ninguna posición válida, se muestra un mensaje de error indicando que no se puede colocar en esa posición.*/
+    /**
+     * Method for randomly placing enemy ships on the enemy board.
+     * Board verification:
+     * - Assign the input board (Iboard) to the variable Eboard.
+     * - If Eboard is not equal to the enemy board (EnemyBoard), the method terminates without taking any action.
+     * Ship limit verification:
+     * - Check if it's still possible to place ships of the desired size within the allowed limits.
+     * - If the maximum number of ships of a certain size has already been placed, the method ends without taking any action.
+     * Random selection of ship size:
+     * - Use a random number generator to determine the size of the ship to be placed.
+     * - Verify how many ships of each size have already been placed and choose a size that hasn't reached its limit.
+     * Ship placement attempts:
+     * - Make several attempts (up to four) to place the ship in different directions.
+     * - Call the canPlaceShip function to verify if it's possible to place the ship at the current position and orientation.
+     * - If a valid position is found, call the placeShip function to place the ship in that position.
+     * - If the ship is successfully placed, set the 'placed' variable to true and exit the loop of attempts.
+     * Increment the enemy ship count:
+     * - If the ship is successfully placed, increment the counter corresponding to the size of the placed ship by calling the incrementEnemyShipCount function.
+     * Error message:
+     * - If the ship cannot be placed in any valid position, display an error message indicating that it cannot be placed in that position.
+     * @param Iboard The board where the ships will be placed.
+     * @param row The row where the first segment of the ship will be attempted to be placed.
+     * @param col The column where the first segment of the ship will be attempted to be placed.
+     */
     private void RandomEnemyShips(GridPane Iboard, int row, int col) {
         // Asigna el tablero de entrada Iboard a la variable Eboard
         GridPane Eboard = Iboard;
@@ -624,7 +667,10 @@ public class boardcontroller implements Serializable {
     }
 
 
-    // Método para incrementar el contador de barcos enemigos según el tamaño del barco colocado
+    /**
+     *A method for increasing the enemy ship count based on the size of the placed ship.
+     * @param shipSize An integer variable that serves to increment the count for a specific type of ship, indicating that it has already been placed on the board
+     */
     private void incrementEnemyShipCount(int shipSize) {
         // Verifica el tamaño del barco y actualiza el contador correspondiente
         if (shipSize == 6) {
@@ -636,13 +682,21 @@ public class boardcontroller implements Serializable {
         }
     }
 
-    // Método para verificar si todos los barcos han sido colocados en YouBoard
+    /**
+     * Method to verify if all types of ships have been placed on YouBoard.
+     * @return returns false if the ships have not been placed in their entirety and returns true if all have been placed.” 😊
+     */
     private boolean allShipsPlaced() {
         return shipsOfSize6 == MAX_SHIPS_OF_SIZE_6 && shipsOfSize4 == MAX_SHIPS_OF_SIZE_4 && shipsOfSize2 == MAX_SHIPS_OF_SIZE_2;
     }
 
 
-    // Método que representa el turno del enemigo
+    /**
+     * Method representing the enemy’s turn:
+     * - Verifies if all the player’s ships have been placed before starting the enemy’s turn.
+     * - Defines actions that will occur after 2 seconds (simulating the enemy’s decision time).
+     * - Randomly selects a row and column on the player’s board (if it’s empty, it selects it)
+     */
     private void enemyTurn() {
         // Verificar si todos los barcos han sido colocados antes de iniciar el turno del enemigo
         if (!allShipsPlaced()) {
@@ -743,8 +797,9 @@ public class boardcontroller implements Serializable {
     }
 
 
-
-    // Método para ocultar los barcos en el tablero del enemigo (EnemyBoard)
+    /**
+     * Method for hiding the ships on the enemy’s board (EnemyBoard).
+     */
     private void hideEnemyShips() {
         // Iterar sobre todos los nodos hijos del tablero del enemigo
         for (Node child : EnemyBoard.getChildren()) {
@@ -763,7 +818,12 @@ public class boardcontroller implements Serializable {
     }
 
 
-    // Método para contar el número de valores verdaderos (true) en una matriz booleana
+    /**
+     * Method for counting the number of true values in a boolean matrix:
+     * @param matrix represents a matrix, whether it’s the player’s or enemy’s board.
+     * It has a true value at a specific position if there is a ship placed in that cell, and false if it’s unoccupied.
+     * @return Returns the total number of true values found in the matrix.
+     */
     private int countTrueValues(boolean[][] matrix) {
         // Inicializar el contador de valores verdaderos
         int count = 0;
@@ -784,12 +844,21 @@ public class boardcontroller implements Serializable {
         return count;
     }
 
+    /**
+     * Method that displays an alert or message when the corresponding button is pressed.
+     * @param event Generates the button press event that triggers the message display
+     */
     @FXML
     void PressToHelp(ActionEvent event) {
         new AlertBox().showConfirm("INSTRUCCIONES DE JUEGO", "PRIMERO CREA TUS BARCOS EN LA CUADRICULA A LA IZQUIERDA\nSEGUNDO: UNA VEZ CREADOS LOS BARCOS DA CLICK EN UNA DE LAS POSICIONES DE LA CUADRICULA IZQUIERDA PARA ATACAR, !CUIDADO¡ TU ENEMIGO TAMBIEN PODRA ATACAR\nTERCERO: DESTRUYE TODOS LOS BARCOS ENEMIGOS PARA GANAR","!QUE EMPIECE EL JUEGO¡");
 
     }
 
+    /**
+     * Method for loading the background image that will go on each of the boards.
+     * @param gridPane Player’s or enemy’s board, where the background images will be placed.
+     * @param imagePath Path to the image that will be used as the background.
+     */
     private void setBackgroundImage(GridPane gridPane, String imagePath) {
         Image backgroundImage = new Image(imagePath);
         BackgroundSize backgroundSize = new BackgroundSize(
@@ -804,9 +873,11 @@ public class boardcontroller implements Serializable {
         gridPane.setBackground(new Background(backgroundImg));
     }
 
-
-
-
+    /**
+     * It is used to set a background image on a BorderPane.
+     * @param borderPane The BorderPane to which you want to apply the background image.
+     * @param imagePath The path to the image file.
+     */
     private void setBackgroundImagePane(BorderPane borderPane, String imagePath) {
         BackgroundImage backgroundImage = new BackgroundImage(
                 new Image(imagePath, 1000, 1000, true, true),
@@ -819,10 +890,12 @@ public class boardcontroller implements Serializable {
         borderPane.setBackground(background);
     }
 
-
-
-
-
+    /**
+     * Method that displays a GIF animation on the grid when a ship area is uncovered, which doesn’t last long.
+     * @param row Row where the ship has been discovered
+     * @param col Column where the ship has been discovered
+     * @param gridPane board where the explosion effect will occur
+     */
     private void showExplosion(int row, int col, GridPane gridPane) {
         ImageView exploImageView = new ImageView(explosionImageView);
         exploImageView.setFitWidth(RECTANGLE_SIZE); // Ajusta el ancho de la imagen
@@ -838,14 +911,13 @@ public class boardcontroller implements Serializable {
         );
         timeline.play(); // Inicia la línea de tiempo
     }
-    /**
-     static void validate (int y) throws boatPositionException {
-     if (y==0){
-     throw new boatPositionException("No puedes dividir entre enteros");
-     }
-     }**/
 
-    // por medio de un método estatico se valida una excepción y se forma
+
+    /**
+     * A static method that serves to validate whether the entered boolean incurs an exception, which will occur if it is positive.
+     * @param bool A boolean whose value will be positive if it is detected that a ship is being placed in a position where another one has already been placed.
+     * @throws boatPositionException Custom exception, which indicates that you cannot place a ship in the same cell
+     */
     static void validate2 (boolean bool) throws boatPositionException {
         if (bool){
             throw new boatPositionException("No puedes digitar en la misma casilla");

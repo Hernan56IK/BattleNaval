@@ -17,6 +17,16 @@ public class ship extends Pane implements Serializable {
     public boolean vertical;
     private int health;
 
+    /**
+     * This method creates the shapes of the ships using Java2D:
+     * @param type an iterator for the cycle.
+     * @param vertical a boolean that determines whether the ship should be constructed vertically to the right or left.
+     * @param confirmation a boolean that changes its value when the last cell is reached, where the ship will be printed.
+     * @param indicatorEnemyShip  a boolean that indicates if the enemy is the one printing the ship.
+     * @param horizontal a boolean that determines whether the ship should be constructed horizontally upward or downward
+     * @param ID ID of the ship
+     */
+
     public ship(int type, boolean vertical, boolean confirmation, boolean indicatorEnemyShip, boolean horizontal, String ID) {
         this.type = type;
         this.vertical = vertical;
