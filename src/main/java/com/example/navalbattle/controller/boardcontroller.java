@@ -18,14 +18,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Random;
+import java.util.*;
 
 public class boardcontroller implements Serializable {
 
@@ -101,7 +103,7 @@ public class boardcontroller implements Serializable {
 
     public void initialize() {
         // Ruta del GIF de explosión
-        String EXPLOSION_GIF_PATH = "file:/C:/Users/HP/Music/BattleNaval-HDGM/BattleNaval-HDGM/src/main/resources/images/explosion.gif";
+        String EXPLOSION_GIF_PATH = "file:src/main/resources/images/explosion.gif";
         //inicializador de la imagen de explosion
         explosionImageView = new Image(EXPLOSION_GIF_PATH);
 
@@ -208,6 +210,11 @@ public class boardcontroller implements Serializable {
                         // Se maneja el clic primario en el tablero del enemigo.
                         handlePrimaryClick(board,rect, finalRow, finalCol, true);
 
+                        //verificar los cuadros con el mismo id
+                        String id = rect.getId();
+                        System.out.println(id);
+
+
                         // Se realiza el turno del enemigo después de que el jugador haya realizado un ataque.
                         enemyTurn();
                     } else if (board == YouBoard && event.getButton() == MouseButton.SECONDARY ) {
@@ -245,6 +252,9 @@ public class boardcontroller implements Serializable {
                 YouTextField.clear();
                 YouTextField.appendText("Primero coloca tus barcos.\n");
                 return; // Salir del método si no se han colocado todos los barcos
+
+
+
             }
 
             // Verificar si hay un barco en la posición seleccionada para el jugador y el enemigo.
@@ -329,6 +339,9 @@ public class boardcontroller implements Serializable {
         // Declarar una variable para almacenar el tamaño del barco que se va a colocar.
         int shipSize;
 
+        //Id del rectangulo
+        String ID;
+
         // Declarar una variable booleana para rastrear si se ha colocado un barco en el tablero.
         boolean placed = false;
 
@@ -338,28 +351,31 @@ public class boardcontroller implements Serializable {
         // Elegir aleatoriamente el tamaño del barco
         if (shipsOfSize6 < MAX_SHIPS_OF_SIZE_6) {
             shipSize = 6;
+            ID="Ship6";
         } else if (shipsOfSize4 < MAX_SHIPS_OF_SIZE_4) {
             shipSize = 4;
+            ID="Ship4";
         } else {
             shipSize = 2;
+            ID="Shipe2";
         }
 
         // Intentar colocar el barco en varias direcciones hasta encontrar una válida
         for (int attempt = 0; attempt < 4; attempt++) {
             if (canPlaceShip(Eboard, row, col, shipSize, vertical, true)) {
-                placeShip(row, col, shipSize, vertical, Eboard, true);
+                placeShip(row, col, shipSize, vertical, Eboard, true,ID);
                 placed = true;
                 break;
             } else if (canPlaceShip(Eboard, row, col, shipSize, vertical, false)) {
-                placeShip(row, col, shipSize, vertical, Eboard, false);
+                placeShip(row, col, shipSize, vertical, Eboard, false,ID);
                 placed = true;
                 break;
             } else if (canPlaceShip(Eboard, row, col, shipSize, !vertical, true)) {
-                placeShip(row, col, shipSize, !vertical, Eboard, true);
+                placeShip(row, col, shipSize, !vertical, Eboard, true,ID);
                 placed = true;
                 break;
             } else if (canPlaceShip(Eboard, row, col, shipSize, !vertical, false)) {
-                placeShip(row, col, shipSize, !vertical, Eboard, false);
+                placeShip(row, col, shipSize, !vertical, Eboard, false,ID);
                 placed = true;
                 break;
             }
@@ -460,7 +476,7 @@ public class boardcontroller implements Serializable {
 
 
     // Método para colocar el barco en la posición deseada en la grilla
-    private void placeShip(int row, int col, int shipSize, boolean vertical, GridPane theboard, boolean positiveDirection) {
+    private void placeShip(int row, int col, int shipSize, boolean vertical, GridPane theboard, boolean positiveDirection, String ID) {
         GridPane Myboard = theboard;
 
         for (int i = 0; i < shipSize; i++) {
@@ -501,7 +517,7 @@ public class boardcontroller implements Serializable {
             if (i == (shipSize - 1)){
                 booleanFinish = false;
             }
-            ship newShip = new ship(1, vertical, booleanFinish, indicatorEnemyShip, positiveDirection); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
+            ship newShip = new ship(1, vertical, booleanFinish, indicatorEnemyShip, positiveDirection,ID); // Crear una nueva instancia de barco con tamaño 1x1 y dirección especificada
             Myboard.add(newShip, shipCol, shipRow); // Agregar el barco a la grilla en la posición adecuada
             newShip.toBack();//pone la representacion del barco detras de la grilla para no bloquear los botones
         }
@@ -556,16 +572,20 @@ public class boardcontroller implements Serializable {
         // Genera un objeto Random para selección aleatoria de tamaño de barco y orientación
         Random random = new Random();
         int shipSize;
+        String ID;
         boolean placed = false;
         boolean vertical = random.nextBoolean();
 
         // Elige aleatoriamente el tamaño del barco según los límites establecidos
         if (EnemyshipsOfSize6 < MAX_SHIPS_OF_SIZE_6) {
             shipSize = 6;
+            ID="Ship6";
         } else if (EnemyshipsOfSize4 < MAX_SHIPS_OF_SIZE_4) {
             shipSize = 4;
+            ID="Ship4";
         } else {
             shipSize = 2;
+            ID="Ship2";
         }
 
         // Intenta colocar el barco en varias direcciones hasta encontrar una posición válida
@@ -573,22 +593,22 @@ public class boardcontroller implements Serializable {
             // Comprueba si se puede colocar el barco en la posición actual y orientación
             if (canPlaceShip(Eboard, row, col, shipSize, vertical, true)) {
                 // Coloca el barco en la posición actual con orientación vertical
-                placeShip(row, col, shipSize, vertical, Eboard, true);
+                placeShip(row, col, shipSize, vertical, Eboard, true,ID);
                 placed = true; // Establece la bandera de colocación como verdadera
                 break; // Sale del bucle de intentos
             } else if (canPlaceShip(Eboard, row, col, shipSize, vertical, false)) {
                 // Coloca el barco en la posición actual con orientación vertical invertida
-                placeShip(row, col, shipSize, vertical, Eboard, false);
+                placeShip(row, col, shipSize, vertical, Eboard, false,ID);
                 placed = true; // Establece la bandera de colocación como verdadera
                 break; // Sale del bucle de intentos
             } else if (canPlaceShip(Eboard, row, col, shipSize, !vertical, true)) {
                 // Coloca el barco en la posición actual con orientación horizontal
-                placeShip(row, col, shipSize, !vertical, Eboard, true);
+                placeShip(row, col, shipSize, !vertical, Eboard, true,ID);
                 placed = true; // Establece la bandera de colocación como verdadera
                 break; // Sale del bucle de intentos
             } else if (canPlaceShip(Eboard, row, col, shipSize, !vertical, false)) {
                 // Coloca el barco en la posición actual con orientación horizontal invertida
-                placeShip(row, col, shipSize, !vertical, Eboard, false);
+                placeShip(row, col, shipSize, !vertical, Eboard, false, ID);
                 placed = true; // Establece la bandera de colocación como verdadera
                 break; // Sale del bucle de intentos
             }
@@ -632,7 +652,7 @@ public class boardcontroller implements Serializable {
 
         // Crear un Timeline que representa la duración del turno del enemigo
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(2), event -> {
+                new KeyFrame(Duration.seconds(1), event -> {
                     // Definir acciones que se realizarán después de 2 segundos (simulando el tiempo de decisión del enemigo)
 
                     // Generar números aleatorios para seleccionar una celda en el tablero del jugador
@@ -659,13 +679,60 @@ public class boardcontroller implements Serializable {
                         }
 
                         if (node != null && node instanceof Pane) {
-                            Rectangle rect = (Rectangle) ((Pane) node).getChildren().get(0);
-                            // Si la celda está vacía, representa un ataque válido
-                            if (rect.getFill().equals(Color.TRANSPARENT)||rect.getFill().equals(Color.BLUE)) {
-                                // Si la celda está vacía, es un ataque válido
-                                handlePrimaryClick(YouBoard, rect, row, col, false);
-                                return;// Salir del bucle después de realizar un ataque válido
+                            ObservableList<Node> children = ((Pane) node).getChildren();
+                            int numChildren = children.size();
+                            // Ahora numChildren contiene el número de hijos en el Pane
+                            System.out.println("Número de hijos en el Pane: " + numChildren);
+
+                            // Iterar sobre los hijos del Pane
+                            for (int i = 0; i < numChildren; i++) {
+                                Node child = children.get(i);
+                                // Obtener el id del hijo, si tiene
+                                String childId = child.getId();
+                                // Imprimir el índice y el id del hijo
+                                System.out.println("Índice del hijo: " + i + ", ID del hijo: " + childId);
                             }
+                            if(numChildren==1){
+
+                                Rectangle rect = (Rectangle) ((Pane) node).getChildren().get(0);
+                                // Si la celda está vacía, representa un ataque válido
+                                if (rect.getFill().equals(Color.TRANSPARENT)||rect.getFill().equals(Color.BLUE)) {
+
+                                    // Si la celda está vacía, es un ataque válido
+                                    handlePrimaryClick(YouBoard, rect, row, col, false);
+                                    return;// Salir del bucle después de realizar un ataque válido
+                                }
+                            }else if(numChildren==2){
+
+                                Rectangle rect = (Rectangle) ((Pane) node).getChildren().get(0);
+                                Rectangle rect2 =  (Rectangle) ((Pane) node).getChildren().get(1);
+                                // Si la celda está vacía, representa un ataque válido
+                                if (rect.getFill().equals(Color.TRANSPARENT)||rect.getFill().equals(Color.BLUE)) {
+                                    rect2.setFill(Color.TRANSPARENT);
+                                    rect2.setStroke(Color.TRANSPARENT);
+                                    // Si la celda está vacía, es un ataque válido
+                                    handlePrimaryClick(YouBoard, rect, row, col, false);
+                                    return;// Salir del bucle después de realizar un ataque válido
+                                }
+                            }else{
+                                Rectangle rect = (Rectangle) ((Pane) node).getChildren().get(0);
+                                Rectangle rect2 =  (Rectangle) ((Pane) node).getChildren().get(1);
+                                Polygon polygon = (Polygon) ((Pane) node).getChildren().get(2);
+                                // Si la celda está vacía, representa un ataque válido
+                                if (rect.getFill().equals(Color.TRANSPARENT)||rect.getFill().equals(Color.BLUE)) {
+                                    rect2.setFill(Color.TRANSPARENT);
+                                    rect2.setStroke(Color.TRANSPARENT);
+                                    polygon.setFill(Color.TRANSPARENT);
+                                    polygon.setStroke(Color.TRANSPARENT);
+                                    // Si la celda está vacía, es un ataque válido
+                                    handlePrimaryClick(YouBoard, rect, row, col, false);
+                                    return;// Salir del bucle después de realizar un ataque válido
+                                }
+                            }
+                        }
+
+                        if (node != null && node instanceof Pane) {
+
                         }
                     } while (true);// Repetir hasta encontrar una celda válida para atacar
                 })
@@ -763,6 +830,7 @@ public class boardcontroller implements Serializable {
         gridPane.getChildren().add(exploImageView);
         GridPane.setColumnIndex(exploImageView, col);
         GridPane.setRowIndex(exploImageView, row);
+        exploImageView.toFront();
 
         // Define una Timeline para eliminar la imagen después de un breve período de tiempo
         Timeline timeline = new Timeline(
@@ -783,6 +851,5 @@ public class boardcontroller implements Serializable {
             throw new boatPositionException("No puedes digitar en la misma casilla");
         }
     }
-
 
 }
