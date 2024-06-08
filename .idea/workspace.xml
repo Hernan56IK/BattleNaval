@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5e9a702-9715-498d-8e34-5db557882631" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/boatPositionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/AlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/IAlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/welcomeStage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/welcomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/welcome-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/barco2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/batalla.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/explosion.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/fondo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/mar.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "jcjt",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/HP/IdeaProjects/BattleNaval/src/main/resources/com/example/navalbattle",
@@ -81,6 +67,19 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.navalbattle" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -103,6 +102,7 @@
       <workItem from="1717562529069" duration="1172000" />
       <workItem from="1717701705815" duration="3300000" />
       <workItem from="1717785908891" duration="1654000" />
+      <workItem from="1717800359034" duration="15189000" />
     </task>
     <servers />
   </component>
