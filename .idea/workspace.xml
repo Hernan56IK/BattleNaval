@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5e9a702-9715-498d-8e34-5db557882631" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/boatPositionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/AlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/Alert/IAlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/welcomeStage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/welcomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/welcome-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/barco2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/batalla.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/explosion.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/fondo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/mar.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/Model/ship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/View/BoardStage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/navalbattle/controller/boardcontroller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/navalbattle/BoardGame.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="d5e9a702-9715-498d-8e34-5db557882631" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +84,7 @@
       <workItem from="1717456706300" duration="1593000" />
       <workItem from="1717562529069" duration="1172000" />
       <workItem from="1717701705815" duration="3300000" />
-      <workItem from="1717785908891" duration="1654000" />
+      <workItem from="1717785908891" duration="2022000" />
     </task>
     <servers />
   </component>

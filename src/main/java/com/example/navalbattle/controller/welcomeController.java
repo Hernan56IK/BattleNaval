@@ -20,6 +20,11 @@ public class welcomeController {
     private String nickname;
     private int age;
 
+    /**
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onHandlerButtonPlayy(ActionEvent event) throws IOException {
         nickname = NameTextField.getText();// Obtains the name entered by the user
