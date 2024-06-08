@@ -17,7 +17,7 @@ public class ship extends Pane implements Serializable {
     public boolean vertical;
     private int health;
 
-    public ship(int type, boolean vertical, boolean confirmation, boolean indicatorEnemyShip, boolean horizontal, String ID) {
+    public ship(int type, boolean vertical, boolean confirmation, boolean indicatorEnemyShip, boolean horizontal) {
         this.type = type;
         this.vertical = vertical;
         this.health = type;
@@ -27,8 +27,6 @@ public class ship extends Pane implements Serializable {
             Rectangle square = new Rectangle(33, 33);
             square.setFill(Color.BLUE);
             square.setStroke(Color.BLACK);
-            System.out.println(ID);
-            square.setId(ID);
             // si se detecta que los barcos creados son del enemigo se vuelven invisibles
             if (indicatorEnemyShip==true) {
                 square.setFill(Color.TRANSPARENT); // Establecer el color de relleno transparente
